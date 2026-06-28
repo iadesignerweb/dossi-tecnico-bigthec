@@ -6,34 +6,88 @@
     <title>Dossiê Técnico | Plínio Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #09090B;
-            --bg-panel: #18181B;
-            --bg-hover: #27272A;
-            --accent: #00E5FF;
-            --accent-glow: rgba(0, 229, 255, 0.2);
-            --text-main: #FFFFFF;
-            --text-muted: #A1A1AA;
-            --danger: #FF3B30;
-            --border: #27272A;
-        }
-
+        :root { --bg-dark: #09090B; --bg-panel: #18181B; --accent: #00E5FF; --accent-glow: rgba(0, 229, 255, 0.2); --text-main: #FFFFFF; --text-muted: #A1A1AA; --danger: #FF3B30; --border: #27272A; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 90px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(9, 9, 11, 0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 1.2rem; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+        .banner-container { width: 100%; background: #000; display: flex; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--border); }
+        .banner-img { width: 100%; max-width: 900px; height: auto; display: block; }
+        .hero { padding: 40px 5% 30px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .protocol { display: inline-block; color: var(--accent); font-family: monospace; font-size: 0.85rem; border: 1px solid var(--accent); padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; background: var(--accent-glow); }
+        .hero h1 { font-size: 2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
+        .tabs-nav { display: flex; justify-content: center; gap: 10px; padding: 0 5%; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-panel); color: var(--text-muted); border: 1px solid var(--border); padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; flex: 1; min-width: 140px; }
+        .tab-btn.active { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
+        .tab-content { display: none; max-width: 900px; margin: 0 auto; padding: 0 5%; }
+        .tab-content.active { display: block; }
+        .card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+        .card h3 { color: var(--accent); margin-bottom: 15px; }
+        .timeline-item { border-left: 2px solid var(--border); padding-left: 20px; margin-bottom: 25px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+        .timeline-date { font-size: 0.8rem; color: var(--accent); font-family: monospace; }
+        .whatsapp-float { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: #FFF; border-radius: 50%; z-index: 4000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        footer { text-align: center; padding: 30px 5%; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PLÍNIO<span>STUDIO</span></div>
+        <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Voltar</a>
+    </header>
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            padding-bottom: 60px;
-            overflow-x: hidden;
+    <div class="banner-container">
+        <img src="https://raw.githubusercontent.com/iadesignerweb/dossi-tecnico-bigthec/refs/heads/main/file_00000000b7c871f59ba73039e4405989.png" class="banner-img" alt="Capa Dossiê">
+    </div>
+
+    <section class="hero">
+        <div class="protocol">PROTOCOLO OFICIAL: 3-1494000041038</div>
+        <h1>Dossiê Técnico: A Fábrica de Dopamina</h1>
+    </section>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab('cronologia')">Cronologia</button>
+        <button class="tab-btn" onclick="openTab('dados')">Dados</button>
+        <button class="tab-btn" onclick="openTab('mapa')">Mapas</button>
+    </div>
+
+    <div id="cronologia" class="tab-content active">
+        <div class="card">
+            <h3>Linha do Tempo da Sabotagem</h3>
+            <div class="timeline-item"><div class="timeline-date">2010-2012</div><div class="timeline-title">Fase de Crescimento e Punição</div><div class="timeline-desc">Fundação e primeira monetização cerceada.</div></div>
+            <div class="timeline-item"><div class="timeline-date">Jan/2026</div><div class="timeline-title">O Curto-Circuito (Queda Brusca)</div><div class="timeline-desc">Mudança maléfica comprovada na entrega.</div></div>
+            <div class="timeline-item"><div class="timeline-date">Jun/2026</div><div class="timeline-title">Abertura do Dossiê</div><div class="timeline-desc">Recusa ao conteúdo raso e denúncia global.</div></div>
+        </div>
+    </div>
+
+    <div id="dados" class="tab-content">
+        <div class="card">
+            <h3>Anomalias de Retenção</h3>
+            <p>Engajamento Orgânico: 150% (5:12 em 3:31). A prova técnica da punição ao valor intelectual.</p>
+        </div>
+    </div>
+
+    <div id="mapa" class="tab-content">
+        <div class="card">
+            <h3>Fluxo de Controle</h3>
+            <p>Obra de Valor > Público Engaja > Algoritmo Detecta Diferencial > Punição (Shadowban).</p>
+        </div>
+    </div>
+
+    <a href="https://wa.me/5587996029765" class="whatsapp-float">📞</a>
+    <footer>© 2026 Plínio Studio. CEO Plínio Fabrício.</footer>
+
+    <script>
+        function openTab(id) {
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).style.display = 'block';
+            event.currentTarget.classList.add('active');
         }
-
-        /* HEADER & NAVIGATION */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    </script>
+</body>
+</html>
             padding: 15px 5%;
             background: rgba(9, 9, 11, 0.95);
             border-bottom: 1px solid var(--border);
