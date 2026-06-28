@@ -22,59 +22,40 @@
             padding: 50px 24px 100px 24px;
         }
         
-        /* Área dos Botões Superiores */
+        /* Área dos Botões Superiores - Alinhados e Padronizados */
         .nav-container {
             text-align: center;
             margin-bottom: 35px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         
-        .btn-back {
+        .btn-nav {
             display: inline-block;
             background-color: transparent;
-            color: #66fcf1;
-            border: 2px solid #66fcf1;
-            padding: 12px 28px;
-            font-size: 0.9rem;
+            padding: 12px 20px;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-decoration: none;
             border-radius: 4px;
             transition: all 0.3s ease-in-out;
-        }
-        
-        .btn-back:hover {
-            background-color: #66fcf1;
-            color: #0b0c10;
-            box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
-            cursor: pointer;
+            border: 2px solid;
+            min-width: 140px;
         }
 
-        .btn-whatsapp {
-            display: inline-block;
-            background-color: transparent;
-            color: #25D366;
-            border: 2px solid #25D366;
-            padding: 12px 28px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease-in-out;
-        }
+        /* Cores dos Botões */
+        .btn-back { color: #66fcf1; border-color: #66fcf1; }
+        .btn-back:hover { background-color: #66fcf1; color: #0b0c10; box-shadow: 0 0 15px rgba(102, 252, 241, 0.3); }
 
-        .btn-whatsapp:hover {
-            background-color: #25D366;
-            color: #0b0c10;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-            cursor: pointer;
-        }
+        .btn-whatsapp { color: #25D366; border-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #25D366; color: #0b0c10; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
+
+        .btn-pdf { color: #ffffff; border-color: #ffffff; }
+        .btn-pdf:hover { background-color: #ffffff; color: #0b0c10; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
 
         /* Banner Plínio Studio */
         .banner-container {
@@ -229,10 +210,11 @@
 
     <div class="container">
         
-        <!-- Botões -->
+        <!-- Botões Padronizados -->
         <div class="nav-container">
-            <a href="https://iadesignerweb.github.io/pliniostudio.io/" class="btn-back">Voltar ao Site</a>
-            <a href="https://wa.me/5587996029765" class="btn-whatsapp" target="_blank">WhatsApp Oficial</a>
+            <a href="https://iadesignerweb.github.io/pliniostudio.io/" class="btn-nav btn-back">Voltar</a>
+            <a href="https://wa.me/5587996029765" class="btn-nav btn-whatsapp" target="_blank">WhatsApp</a>
+            <a href="https://www.mediafire.com/file/n0mz8uqnevxahgi/DOSSIÊ+DOPAMINA.pdf/file" class="btn-nav btn-pdf" target="_blank">Baixar PDF</a>
         </div>
 
         <!-- Banner Oficial -->
@@ -309,3 +291,4 @@
 
 </body>
 </html>
+
