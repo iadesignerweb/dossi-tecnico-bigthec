@@ -1,458 +1,354 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gerador de Imagens | Plínio Studio</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dossiê Técnico | Plínio Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #09090B;
+            --bg-panel: #18181B;
+            --bg-hover: #27272A;
+            --accent: #00E5FF;
+            --accent-glow: rgba(0, 229, 255, 0.2);
+            --text-main: #FFFFFF;
+            --text-muted: #A1A1AA;
+            --danger: #FF3B30;
+            --border: #27272A;
+        }
 
-    :root {
-      --primary-color: #00ffb3; 
-      --primary-dark: #00cc8e;
-      --background-dark: #121212; 
-      --card-background: rgba(30, 30, 30, 0.7);
-      --card-selected-background: rgba(0, 255, 179, 0.15);
-      --text-light: #F0F0F0;
-      --text-medium: #CCCCCC;
-      --border-color: rgba(255, 255, 255, 0.15);
-      --button-gradient-start: #00ffb3;
-      --button-gradient-end: #00cc8e;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #1e1e21, #0d0d1a) fixed;
-      color: var(--text-light);
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      box-sizing: border-box;
-      overflow-x: hidden;
-    }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 60px;
+            overflow-x: hidden;
+        }
 
-    .content-container {
-      background: rgba(20, 20, 25, 0.5);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      width: 100%;
-      max-width: 650px;
-      margin: 15px;
-      padding: 25px;
-      border-radius: 28px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-      box-sizing: border-box;
-      position: relative;
-    }
+        /* HEADER & NAVIGATION */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(9, 9, 11, 0.95);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo { font-size: 1.2rem; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+        
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .btn-back:hover { color: var(--accent); }
 
-    /* Menu Toggle */
-    .menu-toggle {
-      position: absolute; top: 25px; left: 25px; width: 25px; height: 20px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      cursor: pointer; z-index: 1001; 
-    }
-    .menu-toggle span {
-      display: block; width: 100%; height: 3px; background: var(--primary-color);
-      border-radius: 3px; transition: all 0.3s ease;
-    }
-    .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-    .menu-toggle.active span:nth-child(2) { opacity: 0; }
-    .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+        /* HERO SECTION */
+        .hero {
+            padding: 50px 5% 30px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .protocol {
+            display: inline-block;
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: var(--accent-glow);
+            letter-spacing: 1px;
+        }
+        .hero h1 { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; line-height: 1.2; }
+        .hero p { color: var(--text-muted); font-size: 1rem; }
 
-    /* Sidebar */
-    .sidebar {
-      position: fixed; top: 0; left: 0; width: 280px; height: 100%;
-      background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(15px);
-      box-shadow: 5px 0 25px rgba(0, 0, 0, 0.8); transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000;
-      padding-top: 100px; border-right: 1px solid var(--border-color);
-    }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar ul { list-style: none; padding: 0; margin: 0; }
-    .sidebar li a {
-      display: block; padding: 18px 35px; color: var(--text-light); text-decoration: none;
-      font-size: 16px; font-weight: 600; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.2s;
-    }
-    .sidebar li a:hover { background: rgba(255, 255, 255, 0.05); color: var(--primary-color); padding-left: 40px; }
+        /* TABS NAVIGATION */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 5%;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: var(--bg-panel);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            flex: 1;
+            min-width: 140px;
+            max-width: 200px;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
 
-    /* Modais */
-    .modal-backdrop {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88);
-        display: none; justify-content: center; align-items: center; z-index: 1005; backdrop-filter: blur(10px);
-    }
-    .modal-content {
-        background: rgba(240, 240, 240, 0.8); padding: 35px; border-radius: 24px; max-width: 500px;
-        width: 90%; text-align: left; position: relative; border: 2px solid var(--primary-color);
-        box-shadow: 0 25px 50px rgba(0,0,0,0.9); max-height: 85vh; overflow-y: auto;
-    }
-    .modal-close {
-        position: absolute; top: 18px; right: 22px; font-size: 30px; color: #666; cursor: pointer; transition: color 0.2s; z-index: 10;
-    }
-    .modal-close:hover { color: var(--primary-color); }
-    .modal-content h3 { margin-top: 0; color: #222; font-weight: 600; font-size: 24px; margin-bottom: 20px; }
-    .prompt-lesson p, .prompt-lesson li { color: #444; line-height: 1.7; font-size: 14px; margin-bottom: 15px; }
-    .prompt-lesson ul { padding-left: 20px; margin-bottom: 15px; }
-    .prompt-lesson strong { color: #111; }
-    .prompt-lesson .signature { text-align: right; margin-top: 25px; color: var(--primary-dark); font-weight: 600; font-size: 14px; }
+        /* TAB CONTENT */
+        .tab-content { display: none; max-width: 900px; margin: 0 auto; padding: 0 5%; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Header */
-    .header { text-align: center; margin-top: 60px; margin-bottom: 30px; }
-    .panel-title { font-size: 32px; font-weight: 600; color: #fff; margin: 0; letter-spacing: -0.5px; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
-    .panel-subtitle { font-size: 13px; color: var(--primary-color); margin-top: 10px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; }
+        /* CONTENT CARDS */
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
+        
+        /* TIMELINE (CRONOLOGIA) */
+        .timeline-item { border-left: 2px solid var(--border); padding-left: 20px; margin-bottom: 25px; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px;
+            background: var(--accent); border-radius: 50%;
+        }
+        .timeline-date { font-size: 0.8rem; color: var(--accent); font-weight: 600; font-family: monospace; }
+        .timeline-title { font-weight: 800; margin: 5px 0; font-size: 1.1rem; }
+        .timeline-desc { color: var(--text-muted); font-size: 0.9rem; }
 
-    /* Input */
-    .prompt-section { margin-bottom: 25px; }
-    .section-title { font-size: 12px; margin-bottom: 12px; color: var(--text-medium); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
-    .prompt-input {
-      width: 100%; padding: 18px; border: 1px solid var(--border-color); border-radius: 18px;
-      background: rgba(0, 0, 0, 0.4); color: #fff; font-family: 'Poppins', sans-serif; font-size: 15px;
-      resize: none; box-sizing: border-box; transition: all 0.3s; box-shadow: inset 0 3px 6px rgba(0,0,0,0.4);
-    }
-    .prompt-input:focus { outline: none; border-color: var(--primary-color); background: rgba(0, 0, 0, 0.6); box-shadow: 0 0 20px rgba(0, 255, 179, 0.2), inset 0 3px 6px rgba(0,0,0,0.4); }
+        /* DATA & METRICS */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .metric-box { background: var(--bg-dark); border: 1px solid var(--border); padding: 20px; border-radius: 8px; text-align: center; }
+        .metric-value { font-size: 2.2rem; font-weight: 800; color: #FFF; margin: 10px 0; }
+        .metric-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        .metric-danger { color: var(--danger); }
 
-    /* Grids e Cartões */
-    .creation-examples, .styles-grid, .ratio-grid { display: grid; gap: 12px; margin-top: 10px; }
-    .ratio-grid { grid-template-columns: repeat(4, 1fr); }
-    .styles-grid { grid-template-columns: repeat(3, 1fr); }
-    .creation-examples { grid-template-columns: repeat(3, 1fr); }
+        /* MIND MAP (CSS FLOWCHART) */
+        .mindmap-node {
+            background: var(--bg-dark); border: 1px solid var(--border); padding: 15px; border-radius: 8px;
+            text-align: center; margin: 10px auto; width: 90%; font-weight: 600; font-size: 0.9rem;
+        }
+        .mindmap-arrow { text-align: center; color: var(--accent); font-size: 1.5rem; margin: 2px 0; }
+        .node-accent { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+        .node-danger { border-color: var(--danger); color: var(--danger); background: rgba(255, 59, 48, 0.1); }
 
-    @media (max-width: 550px) {
-      .styles-grid, .creation-examples { grid-template-columns: repeat(2, 1fr); }
-      .ratio-grid { grid-template-columns: repeat(2, 1fr); }
-      .content-container { padding: 20px; margin: 10px; border-radius: 24px;}
-      .header { margin-top: 50px; }
-      .panel-title { font-size: 28px; }
-    }
+        /* WHATSAPP FLOATING BUTTON */
+        .whatsapp-float {
+            position: fixed;
+            width: 55px;
+            height: 55px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20b858;
+        }
+        .whatsapp-float svg { width: 30px; height: 30px; fill: currentColor; }
 
-    .style-card, .example-card, .ratio-card {
-      padding: 15px 10px; background: var(--card-background); border: 1px solid var(--border-color);
-      border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-medium);
-      transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; min-height: 55px; position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent; 
-    }
-    .style-card *, .example-card *, .ratio-card * { pointer-events: none; }
-    .card-img-wrapper { width: 100%; height: 80px; margin-bottom: 10px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); background: #222; }
-    .card-img { width: 100%; height: 100%; object-fit: cover; }
-    .style-card:hover, .example-card:hover, .ratio-card:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.4); color: #fff; }
-    .style-card.active, .ratio-card.active { background: var(--card-selected-background); color: var(--primary-color); border-color: var(--primary-color); box-shadow: 0 0 15px rgba(0, 255, 179, 0.2); }
-    .style-card span, .example-card span, .ratio-card span { font-weight: 600; font-size: 11px; line-height: 1.4; }
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px 5%;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
 
-    /* Botões */
-    .generate-btn {
-      width: 100%; padding: 18px; background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
-      border: none; border-radius: 18px; font-size: 16px; font-family: 'Poppins', sans-serif; font-weight: 600;
-      cursor: pointer; margin-top: 15px; color: #0d0d1a; transition: all 0.3s ease; text-transform: uppercase;
-      letter-spacing: 1.8px; box-shadow: 0 6px 20px rgba(0, 255, 179, 0.4);
-    }
-    .generate-btn:active { transform: scale(0.98); }
-    .generate-btn:disabled { background: #2a2a2a; color: #666; cursor: not-allowed; box-shadow: none; }
-
-    /* Resultados */
-    .result-container { margin-top: 35px; text-align: center; width: 100%; }
-    .result-placeholder, .loading-container { padding: 50px 20px; border: 2px dashed rgba(255,255,255,0.1); border-radius: 20px; background: rgba(0,0,0,0.3); color: #888; font-size: 14px; }
-    .spinner { width: 45px; height: 45px; border: 4px solid rgba(255,255,255,0.05); border-left-color: var(--primary-color); border-radius: 50%; animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; margin: 0 auto 20px auto; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .image-container { display: flex; flex-direction: column; align-items: center; gap: 20px; animation: fadeIn 0.6s ease; width: 100%; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* CSS ABSOLUTO PARA BLOQUEAR ESTICAMENTO */
-    .generated-image {
-      max-width: 100% !important;
-      max-height: 65vh !important;
-      width: auto !important;
-      height: auto !important;
-      object-fit: scale-down !important; /* REGRA DE OURO DEFINITIVA */
-      display: block;
-      margin: 0 auto;
-      border-radius: 16px; 
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    
-    .download-btn {
-      padding: 14px 30px; background: rgba(255,255,255,0.04); color: #fff;
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
-      font-family: 'Poppins', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.3s;
-    }
-    .download-btn:hover { background: #fff; color: #000; border-color: #fff; }
-  </style>
+        /* RESPONSIVE DESIGN (MOBILE PERFECTION) */
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .hero h1 { font-size: 1.8rem; }
+            .tabs-nav { flex-direction: column; gap: 8px; }
+            .tab-btn { width: 100%; max-width: 100%; }
+            .card { padding: 20px 15px; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .mindmap-node { width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="menu-toggle" id="menu-toggle">
-    <span></span><span></span><span></span>
-  </div>
+    <header>
+        <div class="logo">PLÍNIO<span>STUDIO</span></div>
+        <a href="index.html" class="btn-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Voltar ao Site Principal
+        </a>
+    </header>
 
-  <div class="sidebar" id="sidebar">
-    <ul>
-      <li><a href="#" id="prompt-link">O que é um Prompt?</a></li>
-      <li><a href="https://wa.me/5587996029765" target="_blank">Adquira sua senha</a></li>
-    </ul>
-  </div>
+    <section class="hero">
+        <div class="protocol">PROTOCOLO OFICIAL: 3-1494000041038</div>
+        <h1>Dossiê Técnico: A Fábrica de Dopamina</h1>
+        <p>Documento de auditoria algorítmica e prova cabal da supressão intencional de conteúdo de alto valor intelectual.</p>
+    </section>
 
-  <div class="content-container">
-    <div class="header">
-      <h1 class="panel-title">Gerador de Imagens</h1>
-      <p class="panel-subtitle">Inteligência Artificial por Plínio Studio</p>
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab('cronologia')">Cronologia</button>
+        <button class="tab-btn" onclick="openTab('dados')">Dados e Anomalias</button>
+        <button class="tab-btn" onclick="openTab('fontes')">Fontes Comparativas</button>
+        <button class="tab-btn" onclick="openTab('mapa')">Mapas Mentais</button>
     </div>
 
-    <div class="prompt-section">
-      <textarea id="prompt" class="prompt-input" rows="3" placeholder="Ex: Foto profissional para perfil corporativo no LinkedIn..."></textarea>
-    </div>
+    <!-- TAB 1: CRONOLOGIA -->
+    <div id="cronologia" class="tab-content active">
+        <div class="card">
+            <h3>Linha do Tempo da Sabotagem Algorítmica</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Registro histórico dos eventos que compõem o curto-circuito intencional na entrega de conteúdo orgânico.</p>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2010 a 2012</div>
+                <div class="timeline-title">Fase de Crescimento e Primeira Punição</div>
+                <div class="timeline-desc">Fundação do canal. Monetização ativa atingida validamente, sendo posteriormente desativada arbitrariamente em 2012 com a imposição de novas regras de horas, gerando lucro cessante histórico.</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">Início de Janeiro de 2026</div>
+                <div class="timeline-title">O Curto-Circuito (Queda Brusca)</div>
+                <div class="timeline-desc">Ocorrência da mudança maléfica comprovada. Detecção no Analytics de uma queda drástica e vertical no alcance. O sistema desliga a entrega de vídeos longos simultaneamente à imposição de estresse de interface (pressão por respostas rápidas e erros de datação do canal).</div>
+            </div>
 
-    <div class="prompt-section">
-        <div class="section-title">Formato da Imagem</div>
-        <div class="ratio-grid">
-            <div class="ratio-card active" data-width="1024" data-height="1024">
-                <span>1:1<br>Quadrado</span>
-            </div>
-            <div class="ratio-card" data-width="768" data-height="1024">
-                <span>3:4<br>Retrato</span>
-            </div>
-            <div class="ratio-card" data-width="576" data-height="1024">
-                <span>9:16<br>Stories / Reels</span>
-            </div>
-            <div class="ratio-card" data-width="1024" data-height="576">
-                <span>16:9<br>Paisagem (TV)</span>
+            <div class="timeline-item">
+                <div class="timeline-date">25 a 28 de Junho de 2026</div>
+                <div class="timeline-title">Análise de Dados e Abertura do Dossiê</div>
+                <div class="timeline-desc">Percepção final das anomalias, compilação de provas e recusa oficial, documentada e pública do Plínio Studio em produzir conteúdo raso de 45 a 60 segundos. Início da auditoria independente e denúncia global.</div>
             </div>
         </div>
     </div>
 
-    <div class="prompt-section">
-        <div class="section-title">Estilos Cinematográficos</div>
-        <div class="styles-grid">
-            <div class="style-card" data-style="masterpiece, highly detailed, digital art, vibrant colors, cyberpunk aesthetic">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&q=80" class="card-img" alt="Arte Digital"></div>
-                <span>Arte Digital</span>
+    <!-- TAB 2: DADOS -->
+    <div id="dados" class="tab-content">
+        <div class="card">
+            <h3>Provas Cabais do Painel Analytics</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">A matemática não mente. Os dados abaixo expõem a punição a conteúdos que retêm a atenção de forma profunda.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-label">Engajamento Orgânico Atingido</div>
+                    <div class="metric-value">150%</div>
+                    <div class="timeline-desc">Retenção de 5:12 em um material de 3:31. O público validou a obra de forma incontestável.</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Métrica de Corte Imposta (O Vício)</div>
+                    <div class="metric-value metric-danger">45s - 1m</div>
+                    <div class="timeline-desc">O algoritmo suprime a distribuição caso o conteúdo não estimule picos dopaminérgicos curtos e descartáveis.</div>
+                </div>
             </div>
-            <div class="style-card" data-style="hyper-realistic, 8k resolution, cinematic lighting, photography, macro realism, professional portrait">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" class="card-img" alt="Fotorrealista"></div>
-                <span>Fotorrealista</span>
-            </div>
-            <div class="style-card" data-style="watercolor painting, soft edges, artistic, brush strokes, dreamy atmosphere">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1580136608260-4eb11f4b24fe?w=400&q=80" class="card-img" alt="Aquarela"></div>
-                <span>Aquarela</span>
-            </div>
-            <div class="style-card" data-style="3d render, octane render, unreal engine 5, smooth lighting, volumetric lighting">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80" class="card-img" alt="Render 3D"></div>
-                <span>Render 3D</span>
-            </div>
-            <div class="style-card" data-style="vintage film photography, highly detailed, kodak vision3, fine grain, shot on 35mm film">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1495106245177-55dc6f43e83f?w=400&q=80" class="card-img" alt="Película Vintage"></div>
-                <span>Película Vintage</span>
-            </div>
-            <div class="style-card" data-style="dreamy fantasy art, magical realism, glowing lights, intricate details, mythical creatures">
-                <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80" class="card-img" alt="Fantasia"></div>
-                <span>Fantasia</span>
+            <br>
+            <div class="card" style="background: var(--bg-dark); border-color: var(--border);">
+                <h4 style="margin-bottom: 10px; color: #FFF;">Falsificação de Histórico</h4>
+                <p class="timeline-desc">Os sistemas das Big Techs acusam erroneamente 14 anos de canal, ocultando a fundação real de 2010. Uma falha de conformidade que tenta apagar a autoridade e o direito à monetização prévia do criador.</p>
             </div>
         </div>
     </div>
-    
-    <div class="prompt-section">
-      <div class="section-title">Inspirações Rápidas</div>
-      <div class="creation-examples">
-        <div class="example-card" data-prompt="A futuristic city skyline at sunset, with flying vehicles and glowing neon signs, altamente detalhada">
-          <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80" class="card-img" alt="Metrópole"></div>
-          <span>Metrópole Futurista</span>
+
+    <!-- TAB 3: FONTES -->
+    <div id="fontes" class="tab-content">
+        <div class="card">
+            <h3>O Conflito: Valor vs. A Fábrica de Dopamina</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Análise comparativa da estrutura que adoece a sociedade induzindo criadores à mediocridade.</p>
+            
+            <div style="display: flex; gap: 15px; flex-direction: column;">
+                <div style="padding: 20px; border: 1px solid var(--danger); border-radius: 8px; background: rgba(255,59,48,0.05);">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;">A Máquina (Métricas de Curto Prazo)</h4>
+                    <ul style="color: var(--text-muted); font-size: 0.85rem; margin-left: 20px; line-height: 1.8;">
+                        <li>Exigência de estímulos visuais ou sonoros a cada 3 segundos.</li>
+                        <li>Formatos limitados de 45 segundos a 1 minuto.</li>
+                        <li>Geração de picos de dopamina vazios no público.</li>
+                        <li>Indução de ansiedade (Cortisol) no criador devido à pressão contínua.</li>
+                    </ul>
+                </div>
+                <div style="padding: 20px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent-glow);">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;">Plínio Studio (A Resistência)</h4>
+                    <ul style="color: #FFF; font-size: 0.85rem; margin-left: 20px; line-height: 1.8;">
+                        <li>Obras cinematográficas e educacionais extensas e aprofundadas.</li>
+                        <li>Retenção baseada em valor intelectual (comprovados 150%).</li>
+                        <li>Construção de repertório crítico, musical e de inteligência artificial.</li>
+                        <li>Recusa categórica em participar da degradação intelectual.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="example-card" data-prompt="A majestic lion portrait in the savanna, golden hour lighting, cinematic shot">
-          <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=400&q=80" class="card-img" alt="Leão"></div>
-          <span>Retrato Selvagem</span>
-        </div>
-        <div class="example-card" data-prompt="Retrato formal com fundo neutro e expressão confiante, iluminação uniforme de estúdio para realçar detalhes do rosto">
-          <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" class="card-img" alt="Corporativo"></div>
-          <span>Perfil Corporativo</span>
-        </div>
-      </div>
     </div>
 
-    <button id="generateBtn" class="generate-btn" onclick="generateImage()">Criar Obra de Arte</button>
-
-    <div class="result-container">
-      <div id="resultPlaceholder" class="result-placeholder"><div>Sua criação aparecerá aqui.</div></div>
-      <div id="loadingContainer" class="loading-container" style="display: none;">
-        <div class="spinner"></div><div>Processando os pixels da sua imagem...</div>
-      </div>
-      <div id="imageContainer" class="image-container" style="display: none;">
-        <img id="generatedImage" class="generated-image" src="" alt="Imagem Gerada">
-        <button id="downloadBtn" class="download-btn">Baixar Imagem</button>
-      </div>
+    <!-- TAB 4: MAPA MENTAL -->
+    <div id="mapa" class="tab-content">
+        <div class="card">
+            <h3>Engenharia do Curto-Circuito (Fluxograma)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px; text-align: center; font-size: 0.9rem;">Como a estrutura de distribuição penaliza a excelência.</p>
+            
+            <div class="mindmap-node">1. Criação da Obra de Alto Valor (Plínio Studio)</div>
+            <div class="mindmap-arrow">↓</div>
+            <div class="mindmap-node">2. Público engaja profundamente (Retenção anômala de 150%)</div>
+            <div class="mindmap-arrow">↓</div>
+            <div class="mindmap-node node-danger">3. ALGORITMO DETECTA FUGA DO PADRÃO DOPAMINÉRGICO</div>
+            <div class="mindmap-arrow">↓</div>
+            <div class="mindmap-node node-danger">4. Aplicação do Curto-Circuito (Shadowban / Queda Brusca no Alcance)</div>
+            <div class="mindmap-arrow">↓</div>
+            <div class="mindmap-node node-accent">5. AÇÃO DE DEFESA: Criação do Dossiê e Exigência de Auditoria Humana</div>
+        </div>
     </div>
-  </div>
 
-  <div class="modal-backdrop" id="prompt-modal">
-    <div class="modal-content prompt-lesson">
-        <span class="modal-close" id="modal-close-prompt">&times;</span>
-        <h3>O Segredo do Prompt Perfeito</h3>
-        <p>Um <strong>prompt</strong> é o comando que você dá à Inteligência Artificial. Quanto mais detalhes você fornecer, mais impressionante será o resultado.</p>
-        <p>Para imagens de alto padrão, siga esta estrutura:</p>
-        <ul>
-            <li><strong>Assunto Principal:</strong> Quem ou o que é? (Ex: Um leão dourado, um carro futurista)</li>
-            <li><strong>Cenário/Ambiente:</strong> Onde está? (Ex: Em uma floresta chuvosa à noite)</li>
-            <li><strong>Iluminação:</strong> Como a luz bate? (Ex: Luz cinematográfica, golden hour)</li>
-            <li><strong>Qualidade técnica:</strong> (Ex: 8k, fotorrealista, hyper-detalhado)</li>
-        </ul>
-        <p><em>Dica de Ouro:</em> A IA entende melhor comandos em <strong>Inglês</strong>. Se possível, traduza seu texto antes de gerar!</p>
-        <div class="signature">Plínio Studio - Inovação Audiovisual</div>
-    </div>
-  </div>
+    <!-- BOTÃO WHATSAPP FLUTUANTE -->
+    <a href="https://wa.me/5587996029765" class="whatsapp-float" target="_blank" aria-label="Contato via WhatsApp para Transparência">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.553 4.195 1.6 6.015L.234 23.364l5.474-1.436a11.968 11.968 0 0 0 6.323 1.787h.004c6.645 0 12.03-5.386 12.03-12.03 0-3.22-1.254-6.248-3.53-8.525C18.257 1.255 15.228 0 12.03 0zm0 21.684h-.004a9.946 9.946 0 0 1-5.069-1.383l-.364-.216-3.771.989.998-3.676-.237-.377a9.92 9.92 0 0 1-1.517-5.337C2.067 6.471 6.472 2.067 11.97 2.067c2.668 0 5.174 1.04 7.058 2.925 1.886 1.885 2.926 4.391 2.926 7.06-.002 5.5-4.407 9.905-9.923 9.905zm5.424-7.41c-.298-.149-1.764-.87-2.037-.97-.273-.099-.472-.149-.672.149-.199.298-.771.97-.944 1.168-.173.199-.347.224-.645.075-.298-.149-1.259-.464-2.399-1.485-.887-.793-1.485-1.772-1.658-2.07-.173-.298-.018-.458.131-.608.134-.134.298-.348.447-.521.149-.174.199-.298.298-.497.099-.199.05-.373-.025-.522-.075-.149-.672-1.62-.921-2.218-.242-.584-.487-.504-.672-.513-.173-.008-.372-.008-.571-.008-.199 0-.522.074-.795.373-.273.298-1.044 1.02-1.044 2.485s1.069 2.884 1.218 3.083c.149.199 2.103 3.21 5.093 4.5.712.308 1.267.492 1.7.63.714.227 1.365.195 1.88.118.577-.086 1.764-.72 2.013-1.417.248-.696.248-1.293.174-1.417-.074-.124-.273-.199-.571-.348z"/>
+        </svg>
+    </a>
 
-  <script>
-    const exampleCards = document.querySelectorAll('.example-card');
-    const promptInput = document.getElementById('prompt');
-    const generateBtn = document.getElementById('generateBtn');
-    const styleCards = document.querySelectorAll('.style-card');
-    const ratioCards = document.querySelectorAll('.ratio-card');
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const promptLink = document.getElementById('prompt-link');
-    const promptModal = document.getElementById('prompt-modal');
-    const modalClosePrompt = document.getElementById('modal-close-prompt');
-    
-    let selectedStyle = '';
-    let selectedWidth = 1024;
-    let selectedHeight = 1024;
-    let retryCount = 0;
+    <footer>
+        <p>© 2026 Plínio Studio. Todos os direitos reservados.</p>
+        <p style="margin-top: 5px; color: #FFF; font-weight: 600;">CEO Plínio Fabrício</p>
+    </footer>
 
-    const showLoading = () => {
-      document.getElementById('resultPlaceholder').style.display = 'none';
-      document.getElementById('imageContainer').style.display = 'none';
-      document.getElementById('loadingContainer').style.display = 'block';
-      generateBtn.disabled = true;
-      generateBtn.innerText = 'Renderizando...';
-    };
-    
-    const showImageBlock = () => {
-      document.getElementById('loadingContainer').style.display = 'none';
-      document.getElementById('resultPlaceholder').style.display = 'none';
-      document.getElementById('imageContainer').style.display = 'flex';
-      generateBtn.disabled = false;
-      generateBtn.innerText = 'Criar Nova Obra';
-    };
-    
-    const resetUI = () => {
-      document.getElementById('loadingContainer').style.display = 'none';
-      document.getElementById('imageContainer').style.display = 'none';
-      document.getElementById('resultPlaceholder').style.display = 'block';
-      generateBtn.disabled = false;
-      generateBtn.innerText = 'Criar Obra de Arte';
-    };
-
-    exampleCards.forEach(card => {
-      card.addEventListener('click', () => promptInput.value = card.dataset.prompt);
-    });
-
-    styleCards.forEach(card => {
-        card.addEventListener('click', () => {
-            if(card.classList.contains('active')) {
-                card.classList.remove('active');
-                selectedStyle = '';
-            } else {
-                styleCards.forEach(s => s.classList.remove('active'));
-                card.classList.add('active');
-                selectedStyle = card.dataset.style;
+    <script>
+        function openTab(tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
             }
-        });
-    });
-
-    ratioCards.forEach(card => {
-        card.addEventListener('click', () => {
-            ratioCards.forEach(r => r.classList.remove('active'));
-            card.classList.add('active');
-            selectedWidth = card.dataset.width;
-            selectedHeight = card.dataset.height;
-        });
-    });
-
-    // Função para forçar o download no dispositivo do usuário
-    const forceDownload = async (url, filename) => {
-      try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(blobUrl);
-      } catch (error) {
-        alert('Erro ao tentar baixar a imagem. Verifique sua conexão.');
-      }
-    };
-
-    const generateImage = () => {
-      let userPrompt = promptInput.value.trim();
-      if (!userPrompt) {
-        alert('Por favor, descreva sua visão no campo de texto antes de gerar.');
-        return;
-      }
-
-      showLoading();
-
-      let finalPrompt = userPrompt;
-      if (selectedStyle) finalPrompt += `, ${selectedStyle}`;
-
-      const randomSeed = Math.floor(Math.random() * 10000000);
-      const encodedPrompt = encodeURIComponent(finalPrompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${selectedWidth}&height=${selectedHeight}&seed=${randomSeed}&nologo=true&enhance=true`;
-
-      const imgEl = document.getElementById('generatedImage');
-      
-      imgEl.onload = () => {
-          retryCount = 0;
-          showImageBlock();
-      };
-      
-      imgEl.onerror = () => {
-          if(retryCount < 1) { 
-              retryCount++;
-              generateImage(); 
-          } else {
-              resetUI();
-              retryCount = 0;
-              alert('Os servidores da Inteligência Artificial estão sobrecarregados no momento. Por favor, aguarde alguns segundos e tente gerar novamente.');
-          }
-      };
-
-      imgEl.src = imageUrl;
-
-      const downloadBtn = document.getElementById('downloadBtn');
-      downloadBtn.innerText = 'Baixar Imagem';
-      
-      // Quando clicar em Baixar Imagem, executa a função de forçar download
-      downloadBtn.onclick = () => { 
-          downloadBtn.innerText = 'Baixando...';
-          forceDownload(imageUrl, 'PlinioStudio_ArteIA.jpg').then(() => {
-              downloadBtn.innerText = 'Baixar Imagem';
-          });
-      };
-    };
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-      menuToggle.classList.toggle('active');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
-        menuToggle.classList.remove('active');
-      }
-    });
-
-    promptLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        sidebar.classList.remove('open');
-        menuToggle.classList.remove('active');
-        promptModal.style.display = 'flex';
-    });
-
-    modalClosePrompt.addEventListener('click', () => promptModal.style.display = 'none');
-    window.addEventListener('click', (e) => { if (e.target === promptModal) promptModal.style.display = 'none'; });
-  </script>
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
+            event.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
