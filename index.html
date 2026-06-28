@@ -2,89 +2,253 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dossiê Técnico | Plínio Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê: Soberania Digital e Defesa Social</title>
     <style>
-        :root { --bg-dark: #09090B; --bg-panel: #18181B; --accent: #00E5FF; --accent-glow: rgba(0, 229, 255, 0.2); --text-main: #FFFFFF; --text-muted: #A1A1AA; --danger: #FF3B30; --border: #27272A; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 90px; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(9, 9, 11, 0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-        .logo { font-size: 1.2rem; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 1px; }
-        .logo span { color: var(--accent); }
-        .banner-container { width: 100%; background: #000; display: flex; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--border); }
-        .banner-img { width: 100%; max-width: 900px; height: auto; display: block; }
-        .hero { padding: 40px 5% 30px; text-align: center; max-width: 800px; margin: 0 auto; }
-        .protocol { display: inline-block; color: var(--accent); font-family: monospace; font-size: 0.85rem; border: 1px solid var(--accent); padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; background: var(--accent-glow); }
-        .hero h1 { font-size: 2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
-        .tabs-nav { display: flex; justify-content: center; gap: 10px; padding: 0 5%; margin-bottom: 30px; flex-wrap: wrap; }
-        .tab-btn { background: var(--bg-panel); color: var(--text-muted); border: 1px solid var(--border); padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; flex: 1; min-width: 140px; }
-        .tab-btn.active { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
-        .tab-content { display: none; max-width: 900px; margin: 0 auto; padding: 0 5%; }
-        .tab-content.active { display: block; }
-        .card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
-        .card h3 { color: var(--accent); margin-bottom: 15px; }
-        .timeline-item { border-left: 2px solid var(--border); padding-left: 20px; margin-bottom: 25px; position: relative; }
-        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
-        .timeline-date { font-size: 0.8rem; color: var(--accent); font-family: monospace; }
-        .whatsapp-float { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: #FFF; border-radius: 50%; z-index: 4000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        footer { text-align: center; padding: 30px 5%; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
+        /* Estilo Premium e Cinematográfico para o Manifesto */
+        body {
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 50px 24px 100px 24px;
+        }
+        
+        /* Área do Botão Superior de Retorno */
+        .nav-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            background-color: transparent;
+            color: #ff3838;
+            border: 2px solid #ff3838;
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .btn-back:hover {
+            background-color: #ff3838;
+            color: #0b0c10;
+            box-shadow: 0 0 20px rgba(255, 56, 56, 0.4);
+            cursor: pointer;
+        }
+        
+        /* Cabeçalho do Dossiê */
+        header {
+            border-bottom: 1px solid #1f2833;
+            padding-bottom: 35px;
+            margin-bottom: 45px;
+        }
+        
+        .main-title {
+            font-size: 2.4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 25px 0;
+            line-height: 1.2;
+            font-weight: 900;
+            border-left: 6px solid #ff3838;
+            padding-left: 18px;
+        }
+        
+        /* Box de Metadados/Protocolo */
+        .metadata-box {
+            background: #1f2833;
+            border-left: 3px solid #66fcf1;
+            padding: 22px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+            color: #abs;
+        }
+        
+        .metadata-item {
+            margin-bottom: 10px;
+            color: #e5e7eb;
+        }
+        
+        .metadata-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .metadata-label {
+            color: #66fcf1;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.8px;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        .protocol-value {
+            font-family: "Courier New", Courier, monospace;
+            background: #0b0c10;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-weight: bold;
+            border: 1px solid #334155;
+        }
+        
+        /* Seções do Manifesto */
+        section {
+            margin-bottom: 45px;
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #1f2833;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 22px;
+            color: #c5c6c7;
+            text-align: justify;
+        }
+        
+        ul {
+            margin-top: 0;
+            margin-bottom: 22px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 14px;
+            color: #c5c6c7;
+            text-align: justify;
+        }
+        
+        .highlight-title {
+            color: #ffffff;
+            font-weight: 700;
+            display: inline;
+        }
+        
+        /* Bloco de Assinatura */
+        .signature-area {
+            margin-top: 70px;
+            border-top: 1px solid #1f2833;
+            padding-top: 35px;
+            text-align: right;
+        }
+        
+        .motto {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #ff3838;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        
+        .author-name {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">PLÍNIO<span>STUDIO</span></div>
-        <a href="https://iadesignerweb.github.io/pliniostudio.io/" style="color:var(--text-muted); text-decoration:none; font-weight:600;">Voltar</a>
-    </header>
 
-    <div class="banner-container">
-        <img src="https://raw.githubusercontent.com/iadesignerweb/dossi-tecnico-bigthec/refs/heads/main/file_00000000b7c871f59ba73039e4405989.png" class="banner-img" alt="Capa Dossiê">
-    </div>
-
-    <section class="hero">
-        <div class="protocol">PROTOCOLO OFICIAL: 3-1494000041038</div>
-        <h1>Dossiê Técnico: A Fábrica de Dopamina</h1>
-    </section>
-
-    <div class="tabs-nav">
-        <button class="tab-btn active" onclick="openTab('cronologia')">Cronologia</button>
-        <button class="tab-btn" onclick="openTab('dados')">Dados</button>
-        <button class="tab-btn" onclick="openTab('mapa')">Mapas</button>
-    </div>
-
-    <div id="cronologia" class="tab-content active">
-        <div class="card">
-            <h3>Linha do Tempo da Sabotagem</h3>
-            <div class="timeline-item"><div class="timeline-date">2010-2012</div><div class="timeline-title">Fase de Crescimento e Punição</div><div class="timeline-desc">Fundação e primeira monetização cerceada.</div></div>
-            <div class="timeline-item"><div class="timeline-date">Jan/2026</div><div class="timeline-title">O Curto-Circuito (Queda Brusca)</div><div class="timeline-desc">Mudança maléfica comprovada na entrega.</div></div>
-            <div class="timeline-item"><div class="timeline-date">Jun/2026</div><div class="timeline-title">Abertura do Dossiê</div><div class="timeline-desc">Recusa ao conteúdo raso e denúncia global.</div></div>
+    <div class="container">
+        
+        <!-- Botão de Retorno Superior -->
+        <div class="nav-container">
+            <a href="https://iadesignerweb.github.io/pliniostudio.io/" class="btn-back">Voltar ao Site</a>
         </div>
+
+        <!-- Cabeçalho Institucional/Dossiê -->
+        <header>
+            <h1 class="main-title">DOSSIÊ:<br>SOBERANIA DIGITAL E DEFESA SOCIAL</h1>
+            <div class="metadata-box">
+                <div class="metadata-item"><span class="metadata-label">Data:</span> 28 de Junho de 2026</div>
+                <div class="metadata-item"><span class="metadata-label">Local:</span> Custódia, Pernambuco, Brasil</div>
+                <div class="metadata-item"><span class="metadata-label">Autor:</span> Plínio Fabrício</div>
+                <div class="metadata-item"><span class="metadata-label">Protocolo:</span> <span class="protocol-value">3-1494000041038</span></div>
+            </div>
+        </header>
+
+        <!-- Corpo do Manifesto -->
+        <main>
+            <section>
+                <h2>I. A Declaração de Independência e Recusa</h2>
+                <p>Eu, Plínio Fabrício, cidadão brasileiro, pernambucano, produtor audiovisual estabeleço através deste documento um marco histórico de resistência frente à hegemonia algorítmica.</p>
+                <p>Recuso-me, terminantemente e em caráter irrevogável, a criar conteúdos de valor raso.</p>
+                <p>Não serei cúmplice da degradação intelectual da sociedade brasileira e mundial. Não participarei da engrenagem que prejudica o desenvolvimento cognitivo de crianças, adolescentes, jovens e adultos, induzindo-os ao consumo de materiais desprovidos de valor educacional, social e moral.</p>
+            </section>
+
+            <section>
+                <h2>II. A Denúncia Técnica e Social</h2>
+                <p>Denuncio publicamente a programação nefasta consolidada no algoritmo das plataformas em 2026. Onde tenho provas materiais. Esta estrutura atua como uma fábrica de adoecimento em massa:</p>
+                <ul>
+                    <li><span class="highlight-title">O Ciclo da Ansiedade:</span> O estímulo forçado a vídeos curtos (retenção exigida de 45 segundos a 1 minuto) gera picos artificiais de dopamina, seguidos por descargas de cortisol na corrente sanguínea dos usuários.</li>
+                    <li><span class="highlight-title">A Afronta à Saúde Pública:</span> Esta arquitetura de software é uma atrocidade social. Exijo que estes dados matemáticos de retenção tóxica sejam imediatamente protocolados, investigados e auditados pelos órgãos públicos, jurídicos e conselhos de saúde mental e proteção à infância e adolescência.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>III. O Desafio Direto às Big Techs</h2>
+                <p>Desafio, de forma pública e documentada, qualquer engenheiro de software, arquiteto de dados ou executivo de qualquer Big Tech mundial a explicar e justificar tecnicamente a imposição de dados matemáticos que punem a retenção orgânica profunda (como a marca de 150% registrada no Plínio Studio) em detrimento do consumo frenético.</p>
+                <p>A continuidade da minha permanência nos termos atuais depende de uma ação imediata da plataforma (YouTube): Exijo a alocação de um analista humano para auditar meu canal, revisar as retenções anômalas e suspender a aplicação desta configuração maléfica do algoritmo sobre o meu trabalho.</p>
+            </section>
+
+            <section>
+                <h2>IV. Termos de Proibição e Preservação Histórica</h2>
+                <p>Independente deste Dossiê e a resposta protocolada que possa me causar, estabeleço as seguintes proibições legais sobre a minha propriedade intelectual, construída ao longo de 16 anos de trabalho ininterrupto:</p>
+                <ul>
+                    <li><span class="highlight-title">Bloqueio de Monetização Espúria nos Shorts:</span> Proíbo a veiculação de anúncios nos meus conteúdos de Shorts de 1 minuto, enquanto perdurar a atual política de retenção tóxica.</li>
+                    <li><span class="highlight-title">Proteção de Acervo (Multa Milionária):</span> Proíbo a deleção, supressão ou ocultamento dos meus conteúdos. Qualquer tentativa de deleção do meu acervo constituirá dano moral, histórico e intelectual irreparável, resultando em processo de reparação e multa milionária.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>V. O Repositório da Verdade</h2>
+                <p>Para que este caso se torne base de estudos globais, decreto a criação de uma página independente, imortalizada em um repositório no GitHub, vinculada diretamente à infraestrutura do Plínio Studio.</p>
+                <p>Esta base de dados conterá a linha do tempo completa desta batalha, desde as primeiras anomalias detectadas no dia 25 de junho de 2026, até o fechamento deste Dossiê Documentário.</p>
+            </section>
+
+            <section>
+                <h2>VI. O Marco Final</h2>
+                <p>Eu não me vendo. Não me vendo para prejudicar a sociedade e o meu próximo. Não serei induzido por trends descartáveis e não abaixarei a qualidade da minha obra para me adequar à mediocridade de 1 minuto. Se quiserem o meu trabalho, terão que lidar com conteúdos longos, profundos e de extrema qualidade.</p>
+                <p>Neste dia 28 de junho de 2026, o exército de um homem só avança. E eu cravo, no coração da logo da maior plataforma de vídeos do mundo, a bandeira da resistência para dizer NÃO.</p>
+            </section>
+
+            <!-- Assinatura de Comando -->
+            <div class="signature-area">
+                <div class="motto">Força e honra.</div>
+                <div class="author-name">Plínio Fabrício</div>
+            </div>
+        </main>
+
     </div>
 
-    <div id="dados" class="tab-content">
-        <div class="card">
-            <h3>Anomalias de Retenção</h3>
-            <p>Engajamento Orgânico: 150% (5:12 em 3:31). A prova técnica da punição ao valor intelectual.</p>
-        </div>
-    </div>
-
-    <div id="mapa" class="tab-content">
-        <div class="card">
-            <h3>Fluxo de Controle</h3>
-            <p>Obra de Valor > Público Engaja > Algoritmo Detecta Diferencial > Punição (Shadowban).</p>
-        </div>
-    </div>
-
-    <a href="https://wa.me/5587996029765" class="whatsapp-float">📞</a>
-    <footer>© 2026 Plínio Studio. CEO Plínio Fabrício.</footer>
-
-    <script>
-        function openTab(id) {
-            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).style.display = 'block';
-            event.currentTarget.classList.add('active');
-        }
-    </script>
 </body>
 </html>
+
